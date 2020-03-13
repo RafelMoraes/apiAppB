@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../servicos/user.service';
 
 @Component({
   selector: 'app-tab1',
@@ -6,7 +7,33 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  //Para paginação
+  public page = 1;
+  public totalPaginas = 0;
 
-  constructor() {}
+  public totalUsuarios = 0;
+  public usuariosPagina = 0;
+
+  //Para guardar a lista de Usuarios
+  public listaUsuarios = [];
+
+
+  constructor(private usersService: UserService) {
+    this.buscaUsuarios(this.page);
+  }
+
+  public buscaUsuarios(pagina: Number){
+    this.usersService.listaUsuarios(pagina).subscribe(dados =>{
+      this.page = dados['page'];
+      this.totalPaginas = dados['toal_page'];
+      
+      this.usuariosPagina = dados['per_page'];
+      this.totalUsuarios = dados['total'];
+
+      this.listaUsuarios = dados['data'];
+
+    });
+  }
+
 
 }
