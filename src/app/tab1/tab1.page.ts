@@ -25,7 +25,7 @@ export class Tab1Page {
   public buscaUsuarios(pagina: Number){
     this.usersService.listaUsuarios(pagina).subscribe(dados =>{
       this.page = dados['page'];
-      this.totalPaginas = dados['toal_page'];
+      this.totalPaginas = dados['total_pages'];
       
       this.usuariosPagina = dados['per_page'];
       this.totalUsuarios = dados['total'];
